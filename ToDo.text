@@ -1,0 +1,11 @@
+Make the drag/drop work
+Color code item cards based on time
+The add task button works, with a title, description and deadline
+    Date works on datepicker
+The save button works/use local storage
+Moving items to a new task is remebered
+The delete button works
+Local storage works
+
+Current issues
+Can't check because error in reading undefined

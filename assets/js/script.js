@@ -23,15 +23,23 @@ function createTaskCard(task) {
     const taskDescription = document.createElement('p');
     const taskDelete = document.createElement('button');
 
-
+    //text contents
     taskHead.textContent = task.name;
     taskDate.textContent = task.dueDate;
     taskDescription.textContent = task.description;
 
-
+    //the delete button might not need this
     taskDelete.setAttribute('data-project-id', task.id);
 
+    //add parts to the card
+    taskCard.appendChild(taskHead);
+    taskCard.appendChild(taskDate);
+    taskCard.appendChild(taskDescription);
+    taskCard.appendChild(taskDelete);
 
+    //add card to the body
+    //default to todo
+    $('#to-do').appendChild(taskCard);
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -84,12 +92,28 @@ function handleAddTask(event){
         localStorage.setItem("tasks", taskList); //save to memory
     }
     //renderTaskList()
+    createTaskCard(newTask); //make the new task a card
 
 }
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
+    //each button has the id of the card it is attatched to 
+    //can't get the card itself from the button
+    const deleteId = this.getAttribute('data-project-id');
+    //go through the stored data for this is
+    const taskList = JSON.parse(localStorage.getItem("tasks"));
+    for (let i = 0; i < taskList.length, i++;){
+        if (taskList[i] == deleteId){
+            //need a delete index, so a for loop w/ index
+            taskList.splice(i, 1);
+        }
+    }
+    //leave the for loop and save the change
+    localStorage.setItem("tasks", JSON.stringify(taskList));
 
+
+    window.location.reload(); //this will remove the card
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
@@ -101,3 +125,6 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
 
 });
+
+
+//somehwere there needs to be an event listener on the delete buttons
